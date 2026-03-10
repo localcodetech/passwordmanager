@@ -7,3 +7,4 @@ I will be building a password manager:
   ==>> manually enter username and password socan be retrieved later on
   ==>> clipcopy ability
   =>> search and select save password by entering a keyword
+ 
