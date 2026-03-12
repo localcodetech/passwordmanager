@@ -1,4 +1,6 @@
 .venv
-secrets
-
+apikeys.py
+.json
 __pycache__
+
+vault-password-firebase-adminsdk.json

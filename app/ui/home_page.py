@@ -4,8 +4,14 @@ import tkinter as tk
 from app.utils.apptheme import ThemeWidget
 
 class HomeScreen(tk.Frame):
-    def __init__(self, master = None, cnf = ..., *, background = ..., bd = 0, bg = ..., border = 0, borderwidth = 0, class_ = "Frame", colormap = "", container = False, cursor = "", height = 0, highlightbackground = ..., highlightcolor = ..., highlightthickness = 0, name = ..., padx = 0, pady = 0, relief = "flat", takefocus = 0, visual = "", width = 0):
+    def __init__(self, master ):
 
-        super().__init__(master, cnf, background=background, bd=bd, bg=bg, border=border, borderwidth=borderwidth, class_=class_, colormap=colormap, container=container, cursor=cursor, height=height, highlightbackground=highlightbackground, highlightcolor=highlightcolor, highlightthickness=highlightthickness, name=name, padx=padx, pady=pady, relief=relief, takefocus=takefocus, visual=visual, width=width)
+        super().__init__(master)
 
         tk.Frame.configure(self, bg=ThemeWidget.backgroundcolor)
+
+        self.mainframe = tk.Frame(self,background=ThemeWidget.loginPagebackgroundColor)
+
+        self.mainframe.pack(expand=1, fill="both")
+
+        
