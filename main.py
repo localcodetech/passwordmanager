@@ -2,51 +2,33 @@
 import tkinter as tk
 from app.ui.signup_page import SignupScreen
 from app.utils.apptheme import ThemeWidget
-from app.ui.login_page import LogicScreen
+
+
+
 
 class MyMainApp(tk.Tk):
     def __init__(self, ):
         super().__init__()
 
-        self.root = tk.Tk
-        self.root.title(self,"vaultlane")
-        self.root.geometry(self,"1500x1500")
-        self.root.configure(self, bg=ThemeWidget.loginPagebackgroundColor)
+        self.geometry("1500x1500")
+        self.title("VaultLane")
+        self.configure(background=ThemeWidget.backgroundcolor)
 
-        self.start_app()
+        self.current_frame = None
+
+        self.show_frames(SignupScreen)
+       
 
 
-# 
-    
-
-    def start_app(self):
+    def show_frames(self, page_class):
         
+        if self.current_frame is not None:
+            self.current_frame.destroy()
 
-
-        self.nextpage = SignupScreen(self,self.signup_success)
-        self.nextpage.pack(expand=1,anchor="center")
-
-
-    
-    def signup_success(self):
-
-        self.nextpage.destroy()
-
-        self.loginpage = LogicScreen(self, self.signup_success)
-        self.loginpage.pack(expand=1, fill="both")
-
-
-
+        self.current_frame = page_class(root=self, controller=self)
 
         
-
-    
-
-          
-
-
-
-
+       
 
 
 

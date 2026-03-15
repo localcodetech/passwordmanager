@@ -1,10 +1,10 @@
-import tkinter as tk
+
 
 
 
 class ThemeWidget:
 
-    generalfont = "Arial", 15
+    generalfont = "Arial", 15, "normal"
     backgroundcolor = "#202124"
     foregroundcolor = "#ffffff"
 
@@ -22,6 +22,14 @@ class ThemeWidget:
 
 
     welcome_font = "Impact", 30
+
+
+
+# home page menu
+    menufont="Arial", 10,"normal"
+
+
+    homepage_backgroundcolor= "#35283a"
 
     
 

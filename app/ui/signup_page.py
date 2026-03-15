@@ -5,13 +5,19 @@ import string
 from email_validator import validate_email
 from email_validator import EmailNotValidError,EmailUndeliverableError, EmailSyntaxError
 
+import json 
 
 
 #UI imports
 import tkinter as tk
 from tkinter import  messagebox
 
-from app.ui.login_page import LogicScreen
+from requests import HTTPError
+
+from app.ui.home_page import HomeScreen
+from app.ui.login_page import LoginScreen
+
+
 from ..utils.apptheme import ThemeWidget
 
 #Api for communication
@@ -21,11 +27,12 @@ from firebase_webapi import FirebaseRestApi
 
 class SignupScreen(tk.Frame):
 
-    def __init__(self, parent, signup_success ):
-        self.signupdone = signup_success
+    def __init__(self, root,  controller):
+        super().__init__(root)
+        self.controller = controller
         
-        super().__init__(parent)
-       
+        self.pack( expand=1, anchor="center")
+        self.create_new_account = FirebaseRestApi()
 
         tk.Frame.configure(self, bg=ThemeWidget.loginPagebackgroundColor)
 
@@ -64,11 +71,11 @@ class SignupScreen(tk.Frame):
         self.account_already_Labelframe.grid(row=7, column=1,ipady=1, ipadx=90, pady=5)
        
 
-        self.account_already_button = tk.Button(self.account_already_Labelframe, text="Sign in here", background=ThemeWidget.backgroundcolor, foreground=ThemeWidget.foregroundcolor)
+        self.account_already_button = tk.Button(self.account_already_Labelframe, text="Sign in here", background=ThemeWidget.backgroundcolor, foreground=ThemeWidget.foregroundcolor,command=lambda:self.controller.show_frames(LoginScreen))
         self.account_already_button.pack(pady=5)
         
 
-
+# this validates everything and sends firebase or shows error messages
 
     def data_validator(self):
         self.username = self.username_entry.get().strip()
@@ -78,21 +85,28 @@ class SignupScreen(tk.Frame):
 
 
 
-        
-        # self.create_new_account = FirebaseRestApi()
-
-        if self.username and self.validate_password() and self.validate_email() and self.validate_phonenumber():
-            # self.create_new_account.authentication().create_user_with_email_and_password(email=self.email, password=self.password)
-
-            messagebox.showinfo(title="", message="sign up succussfully")
-
-            self.signupdone()
-
+        if not self.username and self.validate_phonenumber() and self.validate_email() and self.password:
+            messagebox.showerror("error", message="Check info and try again")
         else:
-            messagebox.showwarning("", "error try again")
+            try:
+              if  self.username and self.validate_password() and self.validate_email() and self.validate_phonenumber():
+                  self.create_new_account.authentication().create_user_with_email_and_password(email=self.email, password=self.password)
 
-    def has_account_already(self):
-        pass
+                  messagebox.showinfo(title="New Account", message="Account created successfully")
+                  self.controller.show_frames(HomeScreen)
+            except HTTPError as e:
+                errormessage = e.args[1]
+                error_json = json.load(errormessage)
+                if error_json["error"]["message"] == "EMAIL_EXISTS":
+                    messagebox.showerror("", message="Account Already Exist... redirecting to Login Page")
+                    self.controller.show_frames(LoginScreen)
+                else:
+                    messagebox.showerror(f"Error: {error_json["error"]["message"]}")
+                
+                
+                
+
+    
 
 
 
