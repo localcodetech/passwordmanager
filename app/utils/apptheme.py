@@ -12,7 +12,7 @@ class ThemeWidget:
     signuptextcolor = "#ffc109"
     signuptextfont = "Arial", 50
 
-    signupButtonT = "#fffff1" 
+    signupButtonT = "#f5f5f2" 
     sigupbg = "#4285f4"
 
 
@@ -30,6 +30,13 @@ class ThemeWidget:
 
 
     homepage_backgroundcolor= "#35283a"
+
+
+
+    addinfomationbox_bg_color = "#fbfbff"
+
+
+    addinformation_text_font = "Arial", "15", "bold"
 
     
 

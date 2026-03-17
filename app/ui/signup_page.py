@@ -28,36 +28,36 @@ from firebase_webapi import FirebaseRestApi
 class SignupScreen(tk.Frame):
 
     def __init__(self, root,  controller):
-        super().__init__(root)
+        super().__init__(root, background=ThemeWidget.homepage_backgroundcolor)
         self.controller = controller
         
-        self.pack( expand=1, anchor="center")
+        self.pack(expand=1)
         self.create_new_account = FirebaseRestApi()
 
-        tk.Frame.configure(self, bg=ThemeWidget.loginPagebackgroundColor)
+        
 
-        self.signup_label = tk.Label(self, text="Sign UP", bg=ThemeWidget.loginPagebackgroundColor, font=ThemeWidget.signuptextfont, foreground=ThemeWidget.signuptextcolor)
+        self.signup_label = tk.Label(self, text="Sign UP", bg=ThemeWidget.homepage_backgroundcolor, font=ThemeWidget.signuptextfont, foreground=ThemeWidget.signuptextcolor)
         self.signup_label.grid(row=0, column=1, columnspan=2, pady=10 )
 
-        self.username_label = tk.Label(self, text="Username", bg=ThemeWidget.loginPagebackgroundColor, font=ThemeWidget.generalfont, foreground=ThemeWidget.foregroundcolor )
+        self.username_label = tk.Label(self, text="Username", bg=ThemeWidget.homepage_backgroundcolor, font=ThemeWidget.generalfont, foreground=ThemeWidget.foregroundcolor )
         self.username_label.grid(row=1, column=0)
 
         self.username_entry = tk.Entry(self, )
         self.username_entry.grid(row=1, column=1, pady=10)
 
-        self.email_label = tk.Label(self, text="Email", bg=ThemeWidget.loginPagebackgroundColor, foreground=ThemeWidget.foregroundcolor, font=ThemeWidget.generalfont)
+        self.email_label = tk.Label(self, text="Email", bg=ThemeWidget.homepage_backgroundcolor, foreground=ThemeWidget.foregroundcolor, font=ThemeWidget.generalfont)
         self.email_label.grid(row=2, column=0)
 
         self.email_entry = tk.Entry(self)
         self.email_entry.grid(row=2, column=1, pady=10)
 
-        self.phonenumber_label = tk.Label(self, text="Phone", bg=ThemeWidget.loginPagebackgroundColor, foreground=ThemeWidget.foregroundcolor, font=ThemeWidget.generalfont)
+        self.phonenumber_label = tk.Label(self, text="Phone", bg=ThemeWidget.homepage_backgroundcolor, foreground=ThemeWidget.foregroundcolor, font=ThemeWidget.generalfont)
         self.phonenumber_label.grid(row=3, column=0)
 
         self.phonenumber_entry = tk.Entry(self)
         self.phonenumber_entry.grid(row=3, column=1, pady=10)
         
-        self.password_label = tk.Label(self, text="Password", bg=ThemeWidget.loginPagebackgroundColor, foreground=ThemeWidget.foregroundcolor, font=ThemeWidget.generalfont)
+        self.password_label = tk.Label(self, text="Password", bg=ThemeWidget.homepage_backgroundcolor, foreground=ThemeWidget.foregroundcolor, font=ThemeWidget.generalfont)
         self.password_label.grid(row=4, column=0)
 
         self.password_entry = tk.Entry(self)
@@ -96,7 +96,7 @@ class SignupScreen(tk.Frame):
                   self.controller.show_frames(HomeScreen)
             except HTTPError as e:
                 errormessage = e.args[1]
-                error_json = json.load(errormessage)
+                error_json = json.loads(errormessage)
                 if error_json["error"]["message"] == "EMAIL_EXISTS":
                     messagebox.showerror("", message="Account Already Exist... redirecting to Login Page")
                     self.controller.show_frames(LoginScreen)

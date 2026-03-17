@@ -12,7 +12,7 @@ class MyMainApp(tk.Tk):
 
         self.geometry("1500x1500")
         self.title("VaultLane")
-        self.configure(background=ThemeWidget.backgroundcolor)
+        self.configure(background=ThemeWidget.homepage_backgroundcolor)
 
         self.current_frame = None
 
