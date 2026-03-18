@@ -1,0 +1,16 @@
+[
+    {
+        "username": "admin",
+        "email": "info@gmail.com",
+        "website": "https://localstreamgh.com",
+        "password": "NQ{Ul&)'Y9HA`",
+        "note": "this is a test"
+    },
+    {
+        "username": "superadmin",
+        "email": "info@localstreamgh.com",
+        "website": "https://radio.localstreamgh.com",
+        "password": ":pB^7ueD$A\"p",
+        "note": "this is radio server"
+    }
+]

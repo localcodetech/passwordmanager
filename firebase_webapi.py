@@ -3,7 +3,9 @@ import firebase
 from secretskeys.apikeys import ApiKeys
 
 class FirebaseRestApi:
-    def __init__(self):
+    def __init__(self, email, password):
+        self.email = email
+        self.password = password
         self.config = {
                         "apiKey": ApiKeys.apiKey,
                         "authDomain": ApiKeys.authDomain,
@@ -12,12 +14,25 @@ class FirebaseRestApi:
                         "storageBucket": ApiKeys.storageBucket,
                         "messagingSenderId": ApiKeys.messagingSenderId,
                         "appId": ApiKeys.appId,
-                        "measurementId" : ApiKeys.measurementId
-}
-    def authentication(self):
+                        "measurementId" :ApiKeys.measurementId
+        }
 
-        self.auth = firebase.initialize_app(self.config)
+    
 
-        self.app = self.auth.auth()
+        self.app = firebase.initialize_app(self.config)
+
+        self.auth = self.app.auth()
         
-        return self.app
+        
+    
+
+    def login_func(self):
+        self.user = self.auth.sign_in_with_email_and_password(email=self.email, password=self.password)
+        return self.user
+    
+
+    def signup_func(self):
+        signup = self.auth.create_user_with_email_and_password(email=self.email, password=self.password)
+        return signup
+    
+

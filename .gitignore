@@ -4,3 +4,4 @@ apikeys.py
 __pycache__
 
 vault-password-firebase-adminsdk.json
+database/configuration.json
