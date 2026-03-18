@@ -52,7 +52,7 @@ class LoginScreen(tk.Frame):
         self.password_label = ttk.Label(self.loginsubframe,text="Password", font=ThemeWidget.generalfont, foreground=ThemeWidget.foregroundcolor, background=ThemeWidget.homepage_backgroundcolor)
         self.password_label.grid(row=2, column=0)
 
-        self.password_entry = ttk.Entry(self.loginsubframe)
+        self.password_entry = ttk.Entry(self.loginsubframe, show="*")
         self.password_entry.grid(row=2, column=1, padx=5, pady=10)
 
 
@@ -67,11 +67,10 @@ class LoginScreen(tk.Frame):
 
         try:
             if self.email_validation() and self.password:
-                self.checklogindata = FirebaseRestApi()
-                token = self.checklogindata.authentication().sign_in_with_email_and_password(email=self.email, password=self.password)
-                
-                
-                
+                self.checklogindata = FirebaseRestApi(email=self.email, password=self.password)
+
+                token = self.checklogindata.login_func()
+                 
                 keyring.set_password(service_name="firebase",
                                      username="token",
                                        password=token.get("idToken").encode("utf-8"))
@@ -88,7 +87,7 @@ class LoginScreen(tk.Frame):
             elif error_data["error"]["message"] == "INVALID_EMAIL":
                 messagebox.showerror(title="", message="Invalid email")
             else:
-                messagebox.showerror("", message="details invalid")
+                messagebox.showerror("", message="details ")
         except socket.gaierror:
             messagebox.showerror("internet", message="could not connect")
         except ConnectionError:

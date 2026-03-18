@@ -32,7 +32,7 @@ class SignupScreen(tk.Frame):
         self.controller = controller
         
         self.pack(expand=1)
-        self.create_new_account = FirebaseRestApi()
+        
 
         
 
@@ -76,6 +76,7 @@ class SignupScreen(tk.Frame):
         
 
 # this validates everything and sends firebase or shows error messages
+        
 
     def data_validator(self):
         self.username = self.username_entry.get().strip()
@@ -83,14 +84,17 @@ class SignupScreen(tk.Frame):
         self.email = self.email_entry.get().strip()
         self.password = self.password_entry.get()
 
-
+        
 
         if not self.username and self.validate_phonenumber() and self.validate_email() and self.password:
             messagebox.showerror("error", message="Check info and try again")
         else:
             try:
               if  self.username and self.validate_password() and self.validate_email() and self.validate_phonenumber():
-                  self.create_new_account.authentication().create_user_with_email_and_password(email=self.email, password=self.password)
+                  self.create_new_account = FirebaseRestApi(email=self.email, password=self.password) 
+                  
+                  auth = self.create_new_account.signup_func()
+                  print(auth)
 
                   messagebox.showinfo(title="New Account", message="Account created successfully")
                   self.controller.show_frames(HomeScreen)

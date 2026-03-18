@@ -1,14 +1,18 @@
 
+
 import tkinter as tk
 from app.ui.signup_page import SignupScreen
 from app.utils.apptheme import ThemeWidget
+from firebase__init__ import FirebaseAdminSDK
+
 
 
 
 
 class MyMainApp(tk.Tk):
-    def __init__(self, ):
+    def __init__(self ):
         super().__init__()
+        self.start = FirebaseAdminSDK()
 
         self.geometry("1500x1500")
         self.title("VaultLane")
@@ -17,7 +21,7 @@ class MyMainApp(tk.Tk):
         self.current_frame = None
 
         self.show_frames(SignupScreen)
-       
+
 
 
     def show_frames(self, page_class):
